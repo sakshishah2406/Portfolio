@@ -144,10 +144,11 @@ function drawBack() {
   ctx.font = '600 34px "Playfair Display",Georgia,serif';
   ctx.fillText("Also me", 22, 78);
   const items = [
-    "Teaches computer basics to students with hearing impairments",
-    "Learning machine learning through Andrew Ng's specialization",
-    "Designs in Figma, builds in React and Next.js",
     "Secretary at DJSCSI",
+    "Designs in Figma, builds with React and Next.js",
+    "Loves singing and playing cricket",
+    "Always exploring new tech and experimenting with ideas",
+    "Enjoys turning random ideas into actual projects",
   ];
   let y = 116;
   ctx.font = "14px Inter,sans-serif";
