@@ -19,10 +19,10 @@ export default function App() {
       <main id="top">
         <Hero name={name} saveName={saveName} detailsOpen={detailsOpen} />
         <Marquee />
-        <Projects onOpenChange={setDetailsOpen} />
         <About name={name} />
-        <Experience />
+        <Projects onOpenChange={setDetailsOpen} />
         <Skills />
+        <Experience />
         <Achievements />
         <Contact />
       </main>

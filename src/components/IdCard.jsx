@@ -3,6 +3,7 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import * as THREE from "three";
 import { portfolio } from "../data/portfolio";
+import portraitUrl from "../assets/portrait.jpg";
 
 gsap.registerPlugin(useGSAP);
 
@@ -52,7 +53,38 @@ const mkCanvas = (w, h) => {
   return canvas;
 };
 
-function drawFront() {
+function drawPhoto(ctx, photo, cx, cy, radius) {
+  ctx.save();
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.closePath();
+  ctx.clip();
+  if (photo) {
+    const cover = radius * 2;
+    const zoom = 1.35;
+    const scale = Math.max(cover / photo.width, cover / photo.height) * zoom;
+    const dw = photo.width * scale;
+    const dh = photo.height * scale;
+    let x = cx - dw * 0.5;
+    let y = cy - dh * 0.38;
+    x = Math.min(x, cx - radius);
+    y = Math.min(y, cy - radius);
+    x = Math.max(x, cx + radius - dw);
+    y = Math.max(y, cy + radius - dh);
+    ctx.drawImage(photo, x, y, dw, dh);
+  } else {
+    ctx.fillStyle = "rgba(246,231,228,.28)";
+    ctx.fill();
+  }
+  ctx.restore();
+  ctx.beginPath();
+  ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+  ctx.strokeStyle = C.cream;
+  ctx.lineWidth = 3;
+  ctx.stroke();
+}
+
+function drawFront(photo) {
   const canvas = mkCanvas(560, 827);
   const ctx = canvas.getContext("2d");
   ctx.scale(2, 2);
@@ -71,21 +103,23 @@ function drawFront() {
   ctx.fillStyle = C.cream;
   ctx.font = "600 11px Inter,sans-serif";
   if ("letterSpacing" in ctx) ctx.letterSpacing = "3px";
-  ctx.fillText("STUDENT", 140, 118);
+  ctx.fillText("STUDENT", 140, 58);
   if ("letterSpacing" in ctx) ctx.letterSpacing = "0px";
-  ctx.font = '600 36px "Playfair Display",Georgia,serif';
-  ctx.fillText(NAME, 140, 196);
+  drawPhoto(ctx, photo, 140, 118, 46);
+  ctx.fillStyle = C.cream;
+  ctx.font = '600 34px "Playfair Display",Georgia,serif';
+  ctx.fillText(NAME, 140, 208);
   ctx.font = "400 14px Inter,sans-serif";
-  ctx.fillText("Information Technology", 140, 228);
+  ctx.fillText("Information Technology", 140, 236);
   ctx.strokeStyle = "rgba(246,231,228,.45)";
   ctx.lineWidth = 1;
   ctx.beginPath();
-  ctx.moveTo(78, 258);
-  ctx.lineTo(202, 258);
+  ctx.moveTo(78, 262);
+  ctx.lineTo(202, 262);
   ctx.stroke();
   ctx.font = "500 13px Inter,sans-serif";
-  ctx.fillText("DJSCE  ·  2024–2028", 140, 292);
-  ctx.fillText("CGPA  9.35", 140, 316);
+  ctx.fillText("DJSCE  ·  2024–2028", 140, 294);
+  ctx.fillText("CGPA  9.35", 140, 318);
   rr(ctx, 6, 6, w - 12, h - 12, 20);
   ctx.strokeStyle = C.cream;
   ctx.lineWidth = 2;
@@ -113,7 +147,7 @@ function drawBack() {
     "Teaches computer basics to students with hearing impairments",
     "Learning machine learning through Andrew Ng's specialization",
     "Designs in Figma, builds in React and Next.js",
-    "Secretary at DJCSI",
+    "Secretary at DJSCSI",
   ];
   let y = 116;
   ctx.font = "14px Inter,sans-serif";
@@ -353,12 +387,25 @@ export function IdCard() {
     };
 
     let alive = true;
+    let photoImg = null;
+    const paintFront = () => {
+      frontTex.image = drawFront(photoImg);
+      frontTex.needsUpdate = true;
+      render();
+    };
+    const photo = new Image();
+    photo.onload = () => {
+      if (!alive) return;
+      photoImg = photo;
+      paintFront();
+    };
+    photo.src = portraitUrl;
     document.fonts.ready.then(() => {
       if (!alive) return;
-      frontTex.image = drawFront();
+      paintFront();
       backTex.image = drawBack();
-      frontTex.needsUpdate = true;
       backTex.needsUpdate = true;
+      render();
     });
 
     if (reduced) {

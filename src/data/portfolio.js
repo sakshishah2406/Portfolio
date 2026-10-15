@@ -163,14 +163,14 @@ export const portfolio = {
       points: ["Taught computer literacy and typing, adapting lessons for accessibility."],
     },
     {
-      role: "Secretary · DJCSI",
+      role: "Secretary · DJSCSI",
       when: "2025 – present",
       meta: "Skills learned",
       kicker: "Lead & create",
       stub: "Now secretary",
       paper: "#F8EEC0",
       blurb:
-        "Secretary at DJCSI. Previously Publicity & Marketing Co-Committee Member at DJCSI, and Publicity Co-Committee Member at DJSCE eXpress.",
+        "Secretary at DJSCSI. Previously Publicity & Marketing Co-Committee Member at DJSCSI, and Publicity Co-Committee Member at DJSCE eXpress.",
       points: [
         "Leadership across the committee.",
         "Publicity campaigns for college events.",
