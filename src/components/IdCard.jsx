@@ -209,8 +209,18 @@ export function IdCard() {
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(32, 0.6, 0.1, 100);
-    camera.position.set(0, -4.2, 11);
-    camera.lookAt(0, -4.2, 0);
+    const frameCamera = () => {
+      const tilt = REST_TILT;
+      const cardY = -ROPE - 0.4 - H / 2;
+      const cx = -cardY * Math.sin(tilt);
+      const cy = cardY * Math.cos(tilt);
+      const hx = (W / 2) * Math.abs(Math.cos(tilt)) + (H / 2) * Math.abs(Math.sin(tilt));
+      const hy = (W / 2) * Math.abs(Math.sin(tilt)) + (H / 2) * Math.abs(Math.cos(tilt)) + 0.18;
+      const tan = Math.tan((camera.fov * Math.PI) / 360);
+      const z = Math.max((hx * 1.1) / (tan * camera.aspect), (hy * 1.05) / tan);
+      camera.position.set(cx, cy, z);
+      camera.lookAt(cx, cy, 0);
+    };
     scene.add(new THREE.AmbientLight(0xffffff, 1.15));
     const key = new THREE.DirectionalLight(0xffffff, 0.85);
     key.position.set(3, 2, 6);
@@ -302,7 +312,7 @@ export function IdCard() {
 
     const timeline = gsap.timeline({ repeat: -1, paused: true });
     timeline
-      .set(state, { y: 5, z: -0.5, twist: Math.PI * 2, idle: 0, flip: 0 })
+      .set(state, { y: 5, z: -0.22, twist: Math.PI * 2, idle: 0, flip: 0 })
       .to(state, { y: 0, duration: 1, ease: "power2.out" }, 0)
       .to(state, { z: REST_TILT, duration: 3.4, ease: "elastic.out(1, 0.28)" }, 0.35)
       .to(state, { twist: 0, duration: 3.8, ease: "power3.out" }, 0.2)
@@ -317,6 +327,7 @@ export function IdCard() {
       if (!box.width || !box.height) return;
       renderer.setSize(box.width, box.height, false);
       camera.aspect = box.width / box.height;
+      frameCamera();
       camera.updateProjectionMatrix();
       render();
     };

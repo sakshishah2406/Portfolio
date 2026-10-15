@@ -5,9 +5,9 @@ export const portfolio = {
   availability: "Available for internships",
   roles: ["DEVELOPER", "UI/UX DESIGNER", "BUILDER", "VOCALIST", "LEADER"],
   contact: {
-    github: "https://github.com/sakshishah240",
+    github: "https://github.com/sakshishah2406",
     linkedin: "https://www.linkedin.com/in/sakshi-shah-48b13b294",
-    instagram: "",
+    instagram: "https://www.instagram.com/sakshis_2406/",
     email: "sakshishah2406@gmail.com",
   },
   marquee: ["Thoughtful design", "Digital experiences", "Curious ideas"],
@@ -42,7 +42,7 @@ export const portfolio = {
       hue: "#ffe29a",
       chip: "#5564c8",
       txt: "#ffffff",
-      items: ["NumPy", "Pandas", "Matplotlib", "Seaborn", "Recharts"],
+      items: ["NumPy", "Pandas", "Matplotlib", "SciPy", "Scikit-learn"],
     },
     TOOLS: {
       title: "DEV & DESIGN TOOLS",
@@ -122,10 +122,18 @@ export const portfolio = {
     },
   ],
   about: [
-    "Hey, I’m {name}.",
-    "I’m an IT student and developer passionate about building digital experiences that bring together thoughtful design, functionality, and innovation. I enjoy turning complex problems into intuitive solutions, whether through crafting seamless user interfaces or developing applications that work efficiently behind the scenes.",
-    "With a keen eye for detail and a curiosity for exploring new technologies, I approach every project as an opportunity to experiment, learn, and create something meaningful.",
-    "I believe great technology isn’t just about what it can do, but how effortlessly it makes things better for the people using it.",
+    { title: "About me" },
+    {
+      body: "I’m an IT student who loves coding, building projects, and bringing random ideas to life. I enjoy exploring new technologies and figuring out how things work.",
+    },
+    { title: "Beyond the Screen" },
+    {
+      body: "I’m usually listening to music, exploring new ideas, or getting distracted by something interesting.",
+    },
+    { title: "My Approach" },
+    {
+      body: "I like experimenting, paying attention to details, and finding better ways to solve problems. I believe there’s always something new to learn and improve.",
+    },
   ],
   experience: [
     {
